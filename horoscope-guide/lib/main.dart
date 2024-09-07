@@ -19,6 +19,16 @@ List<String> burclar = [
   "Kova",
   "Balık"
 ];
+String normalize(String input) {
+  return input
+      .toLowerCase() // Tüm metni küçük harfe çevir
+      .replaceAll('ç', 'c')
+      .replaceAll('ğ', 'g')
+      .replaceAll('ş', 's')
+      .replaceAll('ü', 'u')
+      .replaceAll('ö', 'o')
+      .replaceAll('ı', 'i');
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -35,7 +45,7 @@ class MyApp extends StatelessWidget {
           toolbarHeight: deviceHeight / 10,
           backgroundColor: const Color.fromARGB(255, 145, 31, 245),
           title: const Text(
-            "Burç Uygulaması",
+            "Burç Rehberi",
             style: TextStyle(color: Colors.white, fontSize: 35),
           ),
         ),
@@ -44,19 +54,26 @@ class MyApp extends StatelessWidget {
           child: ListView.builder(
             itemCount: burclar.length,
             itemBuilder: (context, index) {
+              String normalizedBurc = normalize(burclar[index]);
+              print("Normalized burc: $normalizedBurc");
+              print(
+                  "Image path: lib/assets/images/${normalizedBurc + (index + 1).toString()}.png");
+
               return Card(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
-                      const Image(
-                        image: AssetImage("lib/assets/images/akrep8.png"),
+                      Image.asset(
+                        "lib/assets/images/${normalizedBurc + (index + 1).toString()}.png",
                         width: 50,
                         height: 50,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error, size: 50);
+                        },
                       ),
-                      const SizedBox(
-                          width: 10), // Görüntü ile metin arasında boşluk
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Text(
                           burclar[index],
@@ -67,12 +84,6 @@ class MyApp extends StatelessWidget {
                         icon: const Icon(Icons.arrow_forward_ios),
                         onPressed: () {
                           // Geçiş fonksiyonu burada aktif olabilir
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => GirisSayfasi(),
-                          //   ),
-                          // );
                         },
                       ),
                     ],
