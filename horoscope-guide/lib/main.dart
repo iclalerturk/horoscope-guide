@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_application_1/sayfalar/oturum/giris.dart';
+import 'package:flutter_application_1/BurcSayfasi.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,9 +19,10 @@ List<String> burclar = [
   "Kova",
   "Balık"
 ];
+
 String normalize(String input) {
   return input
-      .toLowerCase() // Tüm metni küçük harfe çevir
+      .toLowerCase()
       .replaceAll('ç', 'c')
       .replaceAll('ğ', 'g')
       .replaceAll('ş', 's')
@@ -55,10 +56,6 @@ class MyApp extends StatelessWidget {
             itemCount: burclar.length,
             itemBuilder: (context, index) {
               String normalizedBurc = normalize(burclar[index]);
-              print("Normalized burc: $normalizedBurc");
-              print(
-                  "Image path: lib/assets/images/${normalizedBurc + (index + 1).toString()}.png");
-
               return Card(
                 child: Padding(
                   padding: const EdgeInsets.all(15),
@@ -83,7 +80,17 @@ class MyApp extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.arrow_forward_ios),
                         onPressed: () {
-                          // Geçiş fonksiyonu burada aktif olabilir
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BurcSayfasi(
+                                index: index,
+                                burcAdi: burclar[index],
+                                imagePath:
+                                    "lib/assets/images/${normalizedBurc + "_buyuk" + (index + 1).toString()}.png",
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ],
@@ -94,7 +101,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      // home: const GirisSayfasi(),
     );
   }
 }
