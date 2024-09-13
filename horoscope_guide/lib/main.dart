@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope_guide/BurcSayfasi.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
 List<String> burclar = [
   "Koç",
   "Boğa",
@@ -43,7 +39,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: deviceHeight / 10,
-          backgroundColor: const Color.fromARGB(255, 145, 31, 245),
+          backgroundColor: const Color.fromARGB(255, 49, 108, 73),
           title: const Text(
             "Burç Rehberi",
             style: TextStyle(color: Colors.white, fontSize: 35),
@@ -83,6 +79,7 @@ class MyApp extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => BurcSayfasi(
+                                index: index,
                                 burcAdi: burclar[index],
                                 imagePath:
                                     "lib/assets/images/${normalizedBurc + "_buyuk" + (index + 1).toString()}.png",

@@ -4,8 +4,12 @@ import 'package:horoscope_guide/utils/Informations.dart';
 class BurcSayfasi extends StatefulWidget {
   final String imagePath;
   final String burcAdi;
+  final int index;
   const BurcSayfasi(
-      {super.key, required this.imagePath, required this.burcAdi});
+      {super.key,
+      required this.imagePath,
+      required this.burcAdi,
+      required this.index});
 
   @override
   State<BurcSayfasi> createState() => _BurcSayfasiState();
@@ -63,7 +67,7 @@ class _BurcSayfasiState extends State<BurcSayfasi> {
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Text(
-                  Informations.GENERAL_INFO[1],
+                  Informations.GENERAL_INFO[widget.index],
                   style: const TextStyle(fontSize: 20),
                   softWrap: true, // Metnin taşmasını önler
                 ),
