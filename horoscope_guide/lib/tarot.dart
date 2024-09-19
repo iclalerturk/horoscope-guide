@@ -28,29 +28,41 @@ class _TarotState extends State<Tarot> {
             style: TextStyle(color: Colors.white, fontSize: 35),
           ),
         ),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            return GridView.builder(
-              padding: const EdgeInsets.all(8.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 7, // Bir satırda 7 kart
-                  crossAxisSpacing: 1.0, // Kartlar arasındaki yatay boşluk
-                  mainAxisSpacing: 1.0, // Kartlar arasındaki dikey boşluk
-                  childAspectRatio: 2 / 3),
-              itemCount: 78, // Toplam kart sayısı
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 4.0,
-                  child: Center(
-                    child: Text(
-                      '${index + 1}', // Kart numarasını göster
-                      //style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                );
-              },
-            );
-          },
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(7, (colIndex) {
+              // Her bir sütun
+              return Expanded(
+                // Expanded ile sütunun boyutu kontrol altına alınıyor
+                child: Stack(
+                  children:
+                      List.generate(11 + (colIndex == 0 ? 1 : 0), (rowIndex) {
+                    // Her sütundaki kart sayısı değişiyor (örnek olarak 6 + colIndex)
+                    return Positioned(
+                      top: rowIndex *
+                          30.0, // Her kart bir öncekinin biraz altında
+                      child: Card(
+                        elevation: 4.0,
+                        child: SizedBox(
+                          width: 50,
+                          height: 90,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'lib/assets/images/card.jpg',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              );
+            }),
+          ),
         ),
       ),
     );

@@ -40,7 +40,7 @@ class Options extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Tarot(),
+                          builder: (context) => const Tarot(),
                         ),
                       );
                     },
