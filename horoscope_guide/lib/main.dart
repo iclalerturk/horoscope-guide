@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:horoscope_guide/BurcSayfasi.dart';
+import 'package:horoscope_guide/burc_sayfasi.dart';
 
 List<String> burclar = [
   "Koç",
@@ -38,6 +38,12 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           toolbarHeight: deviceHeight / 10,
           backgroundColor: const Color.fromARGB(255, 49, 108, 73),
           title: const Text(
@@ -82,7 +88,7 @@ class MyApp extends StatelessWidget {
                                 index: index,
                                 burcAdi: burclar[index],
                                 imagePath:
-                                    "lib/assets/images/${normalizedBurc + "_buyuk" + (index + 1).toString()}.png",
+                                    "lib/assets/images/${"${normalizedBurc}_buyuk${index + 1}"}.png",
                               ),
                             ),
                           );
