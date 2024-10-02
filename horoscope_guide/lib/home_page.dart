@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:horoscope_guide/options.dart'; // MyApp sınıfının tanımlı olduğu yer
+import 'package:horoscope_guide/options.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: HomePage(), // Ana widget olarak HomePage'i kullanıyoruz
+    home: HomePage(),
     debugShowCheckedModeBanner: false,
   ));
 }
