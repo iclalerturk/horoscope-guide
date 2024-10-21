@@ -57,17 +57,21 @@ class _TarotState extends State<Tarot> with SingleTickerProviderStateMixin {
 
   void _shuffleCards() {
     setState(() {
+      _cards.clear();
+      _cards.addAll(List.generate(78, (index) => 'lib/assets/images/card.jpg'));
       _initializePositions();
       _controller.reset();
       _controller.forward(); // Animasyonu yeniden başlat
+      _selectedCards = [null, null, null];
     });
   }
 
-  void _selectCard(String card) {
+  void _selectCard(int index) {
     setState(() {
       for (int i = 0; i < _selectedCards.length; i++) {
         if (_selectedCards[i] == null) {
-          _selectedCards[i] = card;
+          _selectedCards[i] = _cards[index]; // Seçilen kartı kaydet
+          _cards[index] = ''; // Seçilen kartın yerini boş yap
           break;
         }
       }
@@ -125,22 +129,30 @@ class _TarotState extends State<Tarot> with SingleTickerProviderStateMixin {
                             top: currentOffset.dy,
                             child: GestureDetector(
                               onTap: () {
-                                _selectCard(_cards[index]); // Kart seçimi
+                                _selectCard(index); // Kart seçimi
                               },
-                              child: Card(
-                                elevation: 4.0,
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 90,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      _cards[index], // Kart görselleri
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              child:
+                                  _cards[index] != '' // Kart boş değilse göster
+                                      ? SizedBox(
+                                          width: 50,
+                                          height: 90,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              _cards[index], // Kart görselleri
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        )
+                                      : SizedBox(
+                                          width: 50,
+                                          height: 90,
+                                          child: Container(
+                                            color: Colors
+                                                .transparent, // Boş kart için şeffaf alan
+                                          ),
+                                        ),
                             ),
                           );
                         },
